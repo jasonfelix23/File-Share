@@ -1,6 +1,7 @@
 "use client"
 import { Shield, Files, UploadCloud } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useState } from 'react'
 
 const SideNav = () => {
@@ -24,7 +25,9 @@ const SideNav = () => {
             path: '/upgrade'
         }
     ]
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(1);
+
+
 
     return (
         <div className={`shadow-sm border-r border-slate-800 h-full w-64}`}>
@@ -33,14 +36,17 @@ const SideNav = () => {
             </div>
             <div className='flex flex-col float-left w-full'>
                 {menuList.map((item, index) => (
-                    <button
-                        key={item.id}
-                        onClick={() => setActiveIndex(index)}
-                        className={`flex gap-2 p-4 px-6 hover:bg-gray-800 w-full text-gray-500 
+
+                    <Link href={item.path} key={item.id}>
+                        <button
+                            key={item.id}
+                            onClick={() => setActiveIndex(index)}
+                            className={`flex gap-2 p-4 px-6 hover:bg-gray-800 w-full text-gray-500 
                             ${activeIndex == index ? 'bg-gray-800 text-primary' : null}`}>
-                        <item.icon />
-                        <h2>{item.name}</h2>
-                    </button>
+                            <item.icon />
+                            <h2>{item.name}</h2>
+                        </button>
+                    </Link>
                 ))}
             </div>
         </div>
