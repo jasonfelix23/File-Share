@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import FilesTable from './_components/FilesTable';
-import { app } from '@/firebaseConfig';
+import { app } from './../../../../firebaseConfig';
 import { collection, query, where, getDocs, getFirestore } from "firebase/firestore";
 import { useUser } from '@clerk/nextjs';
 
@@ -77,8 +77,8 @@ const Files = () => {
     useEffect(() => {
         setLoading(true);
         if (user) {
-            // queryFiles();
-            setFiles(dummyTemp);
+            queryFiles();
+            // setFiles(dummyTemp);
         }
         setLoading(false);
     }, [user]);

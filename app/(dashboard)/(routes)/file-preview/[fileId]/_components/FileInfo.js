@@ -19,7 +19,7 @@ const FileInfo = ({ file }) => {
                     width={200}
                     height={200}
                     alt='file'
-                    className='h-[200px] md:h-[300px] lg:scale-125 rounded-md object-contain'
+                    className='h-[100px] md:h-[200px] lg:scale-125 rounded-md object-contain'
                 />
                 <div>
                     <h2>{file.fileName}</h2>

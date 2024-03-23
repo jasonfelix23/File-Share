@@ -1,10 +1,10 @@
 "use client"
-import { Shield, Files, UploadCloud } from 'lucide-react';
+import { Shield, Files, UploadCloud, PanelLeftClose } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react'
 
-const SideNav = () => {
+const SideNav = ({ closeSideBar, toggle }) => {
     const menuList = [
         {
             id: 1,
@@ -31,8 +31,9 @@ const SideNav = () => {
 
     return (
         <div className={`shadow-sm border-r border-slate-800 h-full w-64}`}>
-            <div className='p-5 border-b border-slate-800'>
+            <div className='p-5 border-b border-slate-800 flex justify-between'>
                 <Image src="/logo.svg" width={60} height={60} />
+                {toggle && <PanelLeftClose className='md:hidden text-white/75' onClick={closeSideBar} />}
             </div>
             <div className='flex flex-col float-left w-full'>
                 {menuList.map((item, index) => (
@@ -40,7 +41,7 @@ const SideNav = () => {
                     <Link href={item.path} key={item.id}>
                         <button
                             key={item.id}
-                            onClick={() => setActiveIndex(index)}
+                            onClick={() => { setActiveIndex(index); closeSideBar() }}
                             className={`flex gap-2 p-4 px-6 hover:bg-gray-800 w-full text-gray-500 
                             ${activeIndex == index ? 'bg-gray-800 text-primary' : null}`}>
                             <item.icon />

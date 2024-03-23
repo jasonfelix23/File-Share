@@ -1,24 +1,26 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import UploadForm from './_components/UploadForm';
-import { app } from '@/firebaseConfig';
+import { app } from './../../../../firebaseConfig';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { getFirestore, setDoc, doc } from 'firebase/firestore'
 import { useUser } from '@clerk/nextjs';
-import { generateRandomString } from '@/app/_utils/GenerateRandomString';
+import { generateRandomString } from './../../../../app/_utils/GenerateRandomString';
 import { useRouter } from 'next/navigation';
-import { CheckCircle2 } from 'lucide-react';
+import CompleteCheck from './_components/CompleteCheck';
 
 const Upload = () => {
+    const { user } = useUser();
+
     const storage = getStorage(app);
     const db = getFirestore(app);
     const router = useRouter();
 
-    const { user } = useUser();
 
     const [progress, setProgress] = useState();
     const [uploadComplete, setUploadComplete] = useState(false);
     const [fileDocId, setFileDocId] = useState();
+
     const uploadFile = (file) => {
         const metadata = {
             contentType: file.type
@@ -34,7 +36,6 @@ const Upload = () => {
                 console.log('Upload is ' + progress + '% done');
                 setProgress(progress);
                 if (progress == 100) {
-                    setUploadComplete(true);
                     // Upload completed successfully, now we can get the download URL
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                         console.log('File available at', downloadURL);
@@ -55,18 +56,25 @@ const Upload = () => {
             userEmail: user?.primaryEmailAddress.emailAddress,
             userName: user?.fullName,
             password: '',
-            shortUrl: process.env.NEXT_PUBLIC_BASE_URL + docId,
+            shortUrl: process.env.NEXT_PUBLIC_BASE_URL + 'f/' + docId,
         });
         return docId;
     }
+    useEffect(() => {
+
+        progress == 100 && setTimeout(() => {
+            setUploadComplete(true);
+        }, 2000)
+    }, [progress == 100]);
+
     useEffect(() => {
         console.log("uploadComplete:", uploadComplete);
         console.log("fileDocId:", fileDocId);
         uploadComplete && fileDocId && setTimeout(() => {
             setUploadComplete(false);
             router.push('/file-preview/' + fileDocId);
-        }, 2500)
-    }, [uploadComplete, fileDocId])
+        }, 2000)
+    }, [uploadComplete == true, fileDocId])
     return (
         <div className='p-5 px-8 md:px-28'>
             {!uploadComplete ? <div>
@@ -80,10 +88,8 @@ const Upload = () => {
                     progress={progress}
                 />
             </div>
-                : <div className='flex flex-col gap-2 px-2 py-3 w-full justify-center text-3xl text-center'>
-                    <CheckCircle2 className='text-primary mx-auto block h-16 w-16' />
-                    <h2 className='text-white/75'>File  <strong className='text-primary'> Uploaded </strong> successfully</h2>
-                </div>
+                :
+                <CompleteCheck />
             }
 
         </div>

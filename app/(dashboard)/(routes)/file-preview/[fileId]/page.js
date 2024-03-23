@@ -1,5 +1,5 @@
 "use client"
-import { app } from '@/firebaseConfig'
+import { app } from './../../../../../firebaseConfig'
 import { doc, getFirestore, getDoc } from 'firebase/firestore'
 import { ArrowLeftSquare } from 'lucide-react'
 import Link from 'next/link'
