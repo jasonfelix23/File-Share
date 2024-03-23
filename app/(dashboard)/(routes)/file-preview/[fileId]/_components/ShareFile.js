@@ -1,10 +1,10 @@
-import { Copy, CopyIcon } from 'lucide-react'
-import React, { useContext, useState } from 'react'
+import { Copy } from 'lucide-react'
+import React, { useState } from 'react'
 import GlobalApi from './../../../../../_utils/GlobalApi'
 import { useUser } from '@clerk/nextjs';
 import Toast from '../../../../../_components/Toast';
 
-const ShareFile = ({ file, onPassWordSave }) => {
+const ShareFile = ({ file, onPasswordSave }) => {
     const [isPasswordEnable, setIsEnablePassword] = useState(false);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -74,7 +74,7 @@ const ShareFile = ({ file, onPassWordSave }) => {
                     <button className='p-2 bg-primary disabled:text-white/75 text-white rounded-md
                  disabled:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-blue-600'
                         disabled={password?.length < 3}
-                        onClick={() => onPassWordSave(password)}
+                        onClick={() => onPasswordSave(password)}
                     >
                         Save
                     </button>
@@ -98,7 +98,7 @@ const ShareFile = ({ file, onPassWordSave }) => {
                 </button>
             </div>
             {toast?.status && <Toast toast={toast}
-                closeToast={() => setToast(nulll)} />}
+                closeToast={() => setToast(null)} />}
         </div>
     )
 }

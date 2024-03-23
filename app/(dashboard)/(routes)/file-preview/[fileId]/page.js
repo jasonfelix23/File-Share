@@ -1,6 +1,6 @@
 "use client"
 import { app } from './../../../../../firebaseConfig'
-import { doc, getFirestore, getDoc } from 'firebase/firestore'
+import { doc, getFirestore, getDoc, updateDoc } from 'firebase/firestore'
 import { ArrowLeftSquare } from 'lucide-react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react';
@@ -28,7 +28,7 @@ const FilePreview = ({ params }) => {
 
     const onPasswordSave = async (password) => {
         const docRef = doc(db, "File-share-uploadedFiles", params?.fileId);
-        await updataDoc(docRef, {
+        await updateDoc(docRef, {
             password: password,
         })
     }
