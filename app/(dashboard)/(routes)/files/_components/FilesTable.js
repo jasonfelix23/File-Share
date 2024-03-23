@@ -32,7 +32,7 @@ const FilesTable = ({ files }) => {
                                 <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">{(file.fileSize / 1024 / 1024).toFixed(2)}MB</td>
                                 <td className="whitespace-nowrap px-4 py-2">
                                     <a
-                                        href={`${file.fileUrl}`}
+                                        href={`/file-preview/${file.shortUrl.split('/').pop()}`}
                                         className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium text-white hover:bg-blue-700"
                                     >
                                         View

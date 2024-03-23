@@ -29,7 +29,7 @@ function Hero() {
 
                         <a
                             className="block w-full rounded border px-12 py-3 text-sm font-medium bg-white/90 hover:bg-white/75 text-primary hover:text-blue-700 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
-                            href="#"
+                            href="/about"
                         >
                             Learn More
                         </a>
